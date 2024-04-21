@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import {ref} from 'vue';
+import {useRouter} from "vue-router";
 
 const searchText = ref('');
 
 
 const activeIds = ref([]);
 const activeIndex = ref(0);
+
 const originTagList = [
   {
     text: '性别',
@@ -30,7 +32,7 @@ const originTagList = [
       {text: 'C++', id: 'C++'},
       {text: 'python', id: 'python'},
       {text: 'Go', id: 'go'},
-      {text: 'C#', id: 'C#'},
+      {text: 'iOS', id: 'iOS'},
       {text: 'C', id: 'C'},
     ],
   },
@@ -57,6 +59,18 @@ const doClose = (tag) => {
     return item !== tag;
   })
 }
+
+const router = useRouter();
+
+const findResult = () => {
+  router.push({
+    path: 'user/list',
+    query: {
+      tags: activeIds.value
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -72,7 +86,7 @@ const doClose = (tag) => {
   <van-divider>已选标签</van-divider>
   <div v-if="activeIds.length === 0">请选择标签</div>
   <van-row :gutter="[8,8]">
-    <van-col v-for="tag in activeIds" span='6'>
+    <van-col v-for="tag in activeIds" span='5'>
       <van-tag closeable size="medium" type="primary" @close="doClose(tag)">
         {{ tag }}
       </van-tag>
@@ -84,6 +98,9 @@ const doClose = (tag) => {
       v-model:main-active-index="activeIndex"
       :items="tagList"
   />
+  <div style="padding: 20px">
+    <van-button block type="primary" @click="findResult">搜索</van-button>
+  </div>
 
 </template>
 

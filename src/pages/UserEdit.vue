@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
+import thisAxious from "../plugins/myAxious.ts";
+import {Toast} from "vant";
 
 const username = ref('');
 
+
+//编辑user信息
 const router = useRouter();
 const route = useRoute()
 const editUser = ref({
@@ -12,9 +16,21 @@ const editUser = ref({
   editName: route.query.editName,
 })
 
-const onSubmit = (values) => {
-  console.log("onSubmit()",values)
+
+
+const onSubmit = async () => {
+  const res = await thisAxious.post('user/update',{
+    id: 1,
+    [editUser.value.editKey as string]: editUser.value.currentValue,
+  })
+  if (res.code === 0 && res.data > 0){
+    Toast.success('修改成功')
+    router.back();
+  }else {
+    Toast.fail('修改错误')
+  }
 };
+
 </script>
 
 <template>
