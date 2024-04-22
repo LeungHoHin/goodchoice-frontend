@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import thisAxious from "../plugins/myAxious.ts";
-import {Toast} from "vant";
+import {showFailToast,} from "vant";
+import {getCurrentUser} from "../services/user.ts";
+
 
 // const user = {
 //   id: 123,
@@ -19,11 +20,9 @@ import {Toast} from "vant";
 const user = ref();
 
 onMounted(async () => {
-  const res = await thisAxious.get('user/current')
-  if (res.code === 0){
-    user.value = res.data
-  }else {
-    Toast.fail('获取用户信息失败')
+  user.value = await getCurrentUser();
+  if(user.value === null){
+    showFailToast("获取用户信息失败")
   }
 })
 
@@ -49,12 +48,12 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
     <van-cell title="头像" is-link to="/user/edit">
       <img :src="user.avatarUrl" height="56px">
     </van-cell>
-    <van-cell title="用户名" is-link :value="user.username"  @click = "toEdit('username','用户名',user.gender)"/>
-    <van-cell title="性别" is-link :value="user.gender" @click = "toEdit('gender','性别',user.gender)"/>
-    <van-cell title="电话" is-link :value="user.phone" @click = "toEdit('phone','电话',user.gender)"/>
-    <van-cell title="邮箱" is-link :value="user.email" @click = "toEdit('email','邮箱',user.gender)"/>
-    <van-cell title="标签" is-link :value="user.tags"/>
-    <van-cell title="用户创建时间" is-link :value="user.createTime.toDateString()"/>
+    <van-cell title="用户名" is-link :value="user.userName"  @click = "toEdit('userName','用户名',user.userName)"/>
+    <van-cell title="性别" is-link :value="user.userGender" @click = "toEdit('userGender','性别',user.userGender)"/>
+    <van-cell title="电话" is-link :value="user.userPhone" @click = "toEdit('userPhone','电话',user.userPhone)"/>
+    <van-cell title="邮箱" is-link :value="user.userEmail" @click = "toEdit('userEmail','邮箱',user.userEmail)"/>
+    <van-cell title="标签" is-link :value="user.userTags"/>
+    <van-cell title="用户创建时间" is-link :value="user.createTime"/>
   </template>
 </template>
 <style scoped>

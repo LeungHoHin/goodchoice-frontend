@@ -3,6 +3,7 @@ import './style.css'
 import App from './App.vue'
 import { Button,NavBar,Icon,Tabbar, TabbarItem } from 'vant';
 import 'vant/lib/index.css';
+import { Toast } from 'vant';
 import * as VueRouter from 'vue-router'
 import routes from "./config/routes.ts";
 
@@ -18,4 +19,7 @@ app.use(NavBar)
 app.use(Icon)
 app.use(Tabbar);
 app.use(TabbarItem);
+app.use(Toast)
+
+
 app.mount("#app")

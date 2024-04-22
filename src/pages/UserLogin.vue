@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import {useRoute, useRouter} from "vue-router";
 import thisAxious from "../plugins/myAxious.ts";
-import {Toast} from "vant";
+import {showFailToast, showSuccessToast} from "vant";
 
 const userAccount = ref('');
 const userPassword = ref('');
@@ -11,15 +11,18 @@ const router = useRouter();
 const route = useRoute();
 
 const onSubmit = async () => {
-  const res = await thisAxious.post('user/login',{
+  const res = await thisAxious.post('/user/login', {
     userAccount: userAccount.value,
-    userPassword: userPassword.value
+    userPassword: userPassword.value,
+
   })
-  if (res.code === 0 && res.data){
-    Toast.success('登陆成功')
+
+  if ( res.data.code === 200 && res.data) {
+    showSuccessToast('登录成功');
+    // 跳转到之前的页面
     router.replace('/')
-  }else {
-    Toast.fail('登陆失败')
+  } else {
+    showFailToast('登录失败');
   }
 };
 

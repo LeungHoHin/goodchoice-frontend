@@ -2,7 +2,8 @@
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import thisAxious from "../plugins/myAxious.ts";
-import {Toast} from "vant";
+import {showFailToast, showSuccessToast} from "vant";
+import {getCurrentUser} from "../services/user.ts";
 
 const username = ref('');
 
@@ -16,18 +17,26 @@ const editUser = ref({
   editName: route.query.editName,
 })
 
+const originalValue = route.query.currentValue
 
+// console.log( route.query.editKey,route.query.currentValue,route.query.editName)
 
 const onSubmit = async () => {
+  const currentUser = await getCurrentUser();
+  if (currentUser == null){
+    showFailToast("用户未登录");
+    return
+  }
+
   const res = await thisAxious.post('user/update',{
-    id: 1,
+    'userId': currentUser.userId,
     [editUser.value.editKey as string]: editUser.value.currentValue,
   })
-  if (res.code === 0 && res.data > 0){
-    Toast.success('修改成功')
+  if (res.data.code === 200 && res.data){
+    showSuccessToast('修改成功')
     router.back();
   }else {
-    Toast.fail('修改错误')
+    showFailToast('修改错误')
   }
 };
 
@@ -37,7 +46,7 @@ const onSubmit = async () => {
   <van-form @submit="onSubmit">
     <van-cell-group inset>
       <van-field
-          :v-model="editUser.currentValue"
+          v-model="editUser.currentValue"
           :name="editUser.editKey"
           :label="editUser.editName"
           :placeholder="`请输入${editUser.editName}`"
