@@ -6,6 +6,7 @@ import 'vant/lib/index.css';
 import { Toast } from 'vant';
 import * as VueRouter from 'vue-router'
 import routes from "./config/routes.ts";
+import { DatePicker } from 'vant';
 
 const app = createApp(App)
 
@@ -20,6 +21,7 @@ app.use(Icon)
 app.use(Tabbar);
 app.use(TabbarItem);
 app.use(Toast)
+app.use(DatePicker);
 
 
 app.mount("#app")

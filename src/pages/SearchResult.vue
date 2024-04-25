@@ -5,6 +5,7 @@ import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import thisAxious from "../plugins/myAxious.ts"
 import qs from "qs";
+import UserCardList from "../components/UserCardList.vue";
 
 
 const route = useRoute();
@@ -63,19 +64,7 @@ onMounted(async () => {
 
 <template>
   <van-empty v-if="!userList || userList.length < 1" description="搜索结果为空" />
-  <van-card
-      v-for="user in userList"
-      :title="user.userName"
-      :desc="user.userProfile"
-      :thumb="user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag plain type="primary" v-for="tag in user.userTags" style="margin: 6px; margin-top: 6px">{{ tag }}</van-tag>
-    </template>
-    <template #footer>
-      <van-button size="normal">查看详细</van-button>
-    </template>
-  </van-card>
+  <user-card-list :user-list="userList" />
 </template>
 
 <style scoped>
