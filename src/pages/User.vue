@@ -21,7 +21,7 @@ const user = ref();
 
 onMounted(async () => {
   user.value = await getCurrentUser();
-  if(user.value === null){
+  if (user.value === null) {
     showFailToast("获取用户信息失败")
   }
 })
@@ -39,6 +39,7 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
     }
   })
 }
+
 </script>
 
 
@@ -48,11 +49,12 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
     <van-cell title="头像" is-link to="/user/edit">
       <img :src="user.avatarUrl" height="56px">
     </van-cell>
-    <van-cell title="用户名" is-link :value="user.userName"  @click = "toEdit('userName','用户名',user.userName)"/>
-    <van-cell title="性别" is-link :value="user.userGender" @click = "toEdit('userGender','性别',user.userGender)"/>
-    <van-cell title="电话" is-link :value="user.userPhone" @click = "toEdit('userPhone','电话',user.userPhone)"/>
-    <van-cell title="邮箱" is-link :value="user.userEmail" @click = "toEdit('userEmail','邮箱',user.userEmail)"/>
-    <van-cell title="标签" is-link :value="user.userTags"/>
+    <van-cell title="用户名" is-link :value="user.userName" @click="toEdit('userName','用户名',user.userName)"/>
+    <van-cell title="性别" is-link :value="user.userGender" @click="toEdit('userGender','性别',user.userGender)"/>
+    <van-cell title="电话" is-link :value="user.userPhone" @click="toEdit('userPhone','电话',user.userPhone)"/>
+    <van-cell title="邮箱" is-link :value="user.userEmail" @click="toEdit('userEmail','邮箱',user.userEmail)"/>
+    <van-cell title="标签" is-link :value="user.userTags" @click="toEdit('userTags','标签',user.userTags)"/>
+    <van-cell title="我的队伍" is-link to="/team/my" />
     <van-cell title="用户创建时间" is-link :value="user.createTime"/>
   </template>
 </template>

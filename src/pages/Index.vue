@@ -4,7 +4,6 @@
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 import thisAxious from "../plugins/myAxious.ts"
-import qs from "qs";
 import UserCardList from "../components/UserCardList.vue";
 
 
@@ -41,7 +40,6 @@ onMounted(async () => {
     },
   })
       .then(function (response) {
-        console.log("response.data?.records", response)
         return response.data?.data?.records;
       })
       .catch(function (error) {

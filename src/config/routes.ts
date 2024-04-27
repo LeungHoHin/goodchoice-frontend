@@ -6,6 +6,7 @@ import SearchResult from "../pages/SearchResult.vue";
 import UserLogin from "../pages/UserLogin.vue";
 import Team from "../pages/Team.vue";
 import TeamAdd from "../pages/TeamAdd.vue";
+import MyTeam from "../pages/MyTeams.vue";
 
 
 const routes = [
@@ -17,6 +18,8 @@ const routes = [
     {path: '/user/list', component: SearchResult},
     {path: '/user/login', component: UserLogin},
     {path: '/team/add', component: TeamAdd},
+    {path: '/team/my', component: MyTeam},
+
 
 ]
 

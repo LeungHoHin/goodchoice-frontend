@@ -14,7 +14,6 @@ const onClickRight = () =>{
 
 
 const active = ref("index");
-const onChange = (index) => showToast(`标签 ${index}`);
 
 
 </script>

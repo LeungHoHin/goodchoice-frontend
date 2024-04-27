@@ -1,6 +1,7 @@
 /**
  * 用户类别
  */
+import {UserType} from "./user";
 
 export type TeamType = {
     teamId: number;
@@ -14,4 +15,5 @@ export type TeamType = {
     createTime: Date;
     updateTime: Date;
     leaderId: number;
+    leader?:UserType;
 };

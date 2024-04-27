@@ -38,9 +38,9 @@ const onSubmit = async () => {
     teamStatus: Number(submitFormData.value.teamStatus)
   }
   //参数校验
-  const res = await thisAxious.post("/team/add", postData);
+  const res = await thisAxious.post("/team/update", postData);
   if (res.data.code === 200 && res.data) {
-    showSuccessToast("队伍添加成功")
+    showSuccessToast("队伍更新成功")
     router.push({
       path: '/team',
       replace: true,
